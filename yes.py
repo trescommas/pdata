@@ -14,7 +14,7 @@ def main():
 
     updated_Time = result['data']['time']['s']
 
-    myDict['Time Updated'] = updated_Time
+    myDict['time'] = updated_Time
     myDict['AQI'] = main
 
     pollutants = result['data']['iaqi']
