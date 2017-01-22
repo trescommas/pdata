@@ -11,7 +11,7 @@ def main():
     myDict ={}
 
     main = result['data']['aqi']
-    time = "2017-01-22 12:00:00"
+    time = ''
     updated_Time = result['data']['time']['s']
     if (time != updated_Time):
         time = updated_Time
