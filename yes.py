@@ -11,30 +11,25 @@ def main():
     myDict ={}
 
     main = result['data']['aqi']
-    time = ''
+
     updated_Time = result['data']['time']['s']
-    if (time != updated_Time):
-        time = updated_Time
 
+    myDict['Time Updated'] = updated_Time
+    myDict['AQI'] = main
 
-        myDict['Time Updated'] = time
-        myDict['AQI'] = main
+    pollutants = result['data']['iaqi']
 
-        pollutants = result['data']['iaqi']
+    for chem in pollutants:
+        value = result['data']['iaqi'][chem]['v']
+        myDict[chem] = value
 
-        for chem in pollutants:
-            value = result['data']['iaqi'][chem]['v']
-            myDict[chem] = value
-
-        MONGODB_URI = 'mongodb://abhs:abhs@ds117829.mlab.com:17829/airpoll'
-        client = pymongo.MongoClient(MONGODB_URI)
-        db = client.get_default_database()
-        songs = db['theData']
-        things = songs.insert(myDict)
-        client.close()
-        print "Sucessfully updated"
-    else:
-        print "Time is same"
+    MONGODB_URI = 'mongodb://abhs:abhs@ds117829.mlab.com:17829/airpoll'
+    client = pymongo.MongoClient(MONGODB_URI)
+    db = client.get_default_database()
+    songs = db['theData']
+    things = songs.insert(myDict)
+    client.close()
+    print "Sucessfully updated"
 
 if __name__ == '__main__':
     main()
