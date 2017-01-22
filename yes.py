@@ -31,9 +31,7 @@ def main():
     songs = db['theData']
     things = songs.insert(myDict)
     client.close()
-
-    else:
-        print "Already updated"
-
+    print "All is well"
+    
 if __name__ == '__main__':
     main()
