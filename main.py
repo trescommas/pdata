@@ -3,7 +3,7 @@ import urllib
 import pymongo
 
 def main():
-    token = 'dde134b116d76f3eac813a3164c312ab76d51815'
+    token = 'API token here'
     url = 'http://api.waqi.info/feed/hongkong/?token='+ token
     response = urllib.urlopen(url)
     result = simplejson.load(response)
@@ -23,7 +23,7 @@ def main():
         value = result['data']['iaqi'][chem]['v']
         myDict[chem] = value
 
-    MONGODB_URI = 'mongodb://abhs:abhs@ds117829.mlab.com:17829/airpoll'
+    MONGODB_URI = 'mongodb://url'
     client = pymongo.MongoClient(MONGODB_URI)
     db = client.get_default_database()
     songs = db['theData']
