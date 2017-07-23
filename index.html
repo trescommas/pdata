@@ -1,8 +1,7 @@
-<!-- https://api.mlab.com/api/1/databases/airpoll/collections/theData?q={%22date%22:%222017-07-23%22}&apiKey=VYLqddKD-Oo8w2CeKNGPFpJcyhU0pDDJ -->
-<!DOCTYPE HTML>
+
 <html>
 <head>
-
+    <title>Helo GUIZ</title>
 
 
 </head>
@@ -16,12 +15,11 @@
 <script type="text/javascript">
 
 $.getJSON("https://api.mlab.com/api/1/databases/airpoll/collections/theData?l=5000&apiKey=VYLqddKD-Oo8w2CeKNGPFpJcyhU0pDDJ", function (result) {
-    var labels = [], dataAQI = [], dataS02 =[];
+    var labels = [], dataAQI = [];
 
     for (var i = 0; i < result.length ; i++){
             labels.push(result[i].time);
             dataAQI.push(result[i].AQI);
-            dataS02.push(result[i].so2);
             console.log("result");
     }
 
@@ -41,23 +39,14 @@ $.getJSON("https://api.mlab.com/api/1/databases/airpoll/collections/theData?l=50
                     pointHighlightStroke: "rgba(220,220,220,1)",
                     data: dataAQI
             },
-             {
-                    label: "S02",
-                    fillColor: "rgba(220,220,220,0.2)",
-                    strokeColor: "rgba(220,250,220,1)",
-                    pointColor: "rgba(220,220,220,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: dataS02
-            },
+             
 
             ]}
 });
 });
 </script>
 
-<div id="myChart" style="height: 300px; width: 100%;"></div>
+
 </body>
 </html>
 
