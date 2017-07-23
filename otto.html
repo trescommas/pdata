@@ -1,0 +1,63 @@
+<!-- https://api.mlab.com/api/1/databases/airpoll/collections/theData?q={%22date%22:%222017-07-23%22}&apiKey=VYLqddKD-Oo8w2CeKNGPFpJcyhU0pDDJ -->
+<!DOCTYPE HTML>
+<html>
+<head>
+
+
+
+</head>
+<body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<canvas id="myChart" width="540" height="200"></canvas>
+
+
+<script type="text/javascript">
+
+$.getJSON("https://api.mlab.com/api/1/databases/airpoll/collections/theData?l=5000&apiKey=VYLqddKD-Oo8w2CeKNGPFpJcyhU0pDDJ", function (result) {
+    var labels = [], dataAQI = [], dataS02 =[];
+
+    for (var i = 0; i < result.length ; i++){
+            labels.push(result[i].time);
+            dataAQI.push(result[i].AQI);
+            dataS02.push(result[i].so2);
+            console.log("result");
+    }
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                    labels: labels,
+            datasets: [
+            {
+                    label: "AQI",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: dataAQI
+            },
+             {
+                    label: "S02",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,250,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: dataS02
+            },
+
+            ]}
+});
+});
+</script>
+
+<div id="myChart" style="height: 300px; width: 100%;"></div>
+</body>
+</html>
+
