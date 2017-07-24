@@ -1,52 +1,63 @@
-
 <html>
+
 <head>
-    <title>Helo GUIZ</title>
-
-
+    <title>N.I Hong Kong</title>
 </head>
+
 <body>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <canvas id="myChart" width="540" height="200"></canvas>
+    <script type="text/javascript">
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
 
-<canvas id="myChart" width="540" height="200"></canvas>
+    if (dd < 10) {
+        dd = '0' + dd
+    }
 
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    var url = "https://api.mlab.com/api/1/databases/airpoll/collections/theData?q={'date':'" + today +"'}+&apiKey=VYLqddKD-Oo8w2CeKNGPFpJcyhU0pDDJ"; 
 
-<script type="text/javascript">
+   
 
-$.getJSON("https://api.mlab.com/api/1/databases/airpoll/collections/theData?l=5000&apiKey=VYLqddKD-Oo8w2CeKNGPFpJcyhU0pDDJ", function (result) {
-    var labels = [], dataAQI = [];
+    $.getJSON(url, function(result) {
+        var labels = [],
+            dataAQI = [];
 
-    for (var i = 0; i < result.length ; i++){
+        for (var i = 0; i < result.length; i++) {
             labels.push(result[i].time);
             dataAQI.push(result[i].AQI);
             console.log("result");
-    }
+        }
 
-    var ctx = document.getElementById("myChart").getContext("2d");
-    var myChart = new Chart(ctx, {
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                    labels: labels,
-            datasets: [
-            {
-                    label: "AQI",
-                    fillColor: "rgba(220,220,220,0.2)",
-                    strokeColor: "rgba(220,220,220,1)",
-                    pointColor: "rgba(220,220,220,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: dataAQI
-            },
-             
-
-            ]}
-});
-});
-</script>
+                labels: labels,
+                datasets: [{
+                        label: "AQI",
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: dataAQI
+                    },
 
 
+                ]
+            }
+        });
+    });
+    </script>
 </body>
-</html>
 
+</html>
